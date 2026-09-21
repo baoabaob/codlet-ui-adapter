@@ -1,0 +1,11 @@
+{
+    "pluginId":  "codex.ui.adapter",
+    "files":  [
+
+              ],
+    "repository":  "baoabaob/codlet-ui-adapter",
+    "schema":  1,
+    "initializing":  true,
+    "kind":  "codlet-generated-distribution",
+    "sourceRepository":  "baoabaob/codlet-plugins"
+}
