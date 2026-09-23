@@ -1,6 +1,5 @@
-import { Cube, CodeSquareSlash } from '@openai/apps-sdk-ui/components/Icon';
+import { createCodletIcons } from '../icons.js';
 import { clientProfile } from '../../../compatibility/client-profiles.js';
-import { createCodletIcon } from '../brand.js';
 
 // Host internals belong only to this optional adapter. Never run these imports
 // outside the reviewed Desktop build, or create another app-host connection.
@@ -94,12 +93,14 @@ function pageOwner(args, invocation) {
 
 export function createNavigation(context, native, host) {
   const { React, DOM, Client, SidebarItem, Header, HeaderToolbar } = native;
-  const icons = { Cube, CodeSquareSlash, Codlet: createCodletIcon(React,{compact:true}) };
+  const { Cube, CodeSquareSlash, PluginPuzzle } = createCodletIcons(React);
+  const icons = { Cube, CodeSquareSlash, Codlet: PluginPuzzle };
   const entries = new Map(), h = React.createElement;
   let alive = true, navContainer, navRoot, pending = false;
   const hostLive = () => document.getElementById('root') === host.rootNode && host.rootNode.isConnected;
   const check = () => {
-    if (!alive || locateHost().tree !== host.tree || locateHost().navigator !== host.navigator)
+    const current = alive ? locateHost() : null;
+    if (!current || current.tree !== host.tree || current.navigator !== host.navigator)
       throw fail('ui_host_drift', 'Desktop route ownership changed; reload the UI adapter');
   };
   const renderNav = () => {
@@ -139,6 +140,17 @@ export function createNavigation(context, native, host) {
   };
   const schedule = records => {
     if (!alive || pending || records.every(record => navContainer?.contains(record.target) || record.target.closest?.('[data-codlet-official-ui]'))) return;
+    // Streaming messages change the document much more often than the sidebar.
+    // Inspect only the changed subtrees; a document-wide placement scan is needed
+    // when the native navigation changes or an owned lifetime is disconnected.
+    const selector = 'nav, button.sidebar-item';
+    const navigationChanged = records.some(record => {
+      if (record.target.closest?.('nav')) return true;
+      return [...record.addedNodes, ...record.removedNodes].some(node =>
+        node.nodeType === 1 && (node.matches(selector) || node.querySelector(selector)));
+    });
+    if (hostLive() && [...entries.values()].every(entry => entry.lease.isConnected) &&
+        (!navContainer || navContainer.isConnected || !entries.size) && !navigationChanged) return;
     pending = true; queueMicrotask(() => { pending = false; reconcile(); });
   };
   const observer = new MutationObserver(schedule);

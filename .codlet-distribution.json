@@ -4,10 +4,10 @@
   "pluginId": "codex.ui.adapter",
   "repository": "baoabaob/codlet-ui-adapter",
   "sourceRepository": "baoabaob/codlet-plugins",
-  "sourceCommit": "7c7ae8e528fe8c9a0ae719803500b1bba01d662d",
-  "version": "0.1.0",
-  "packageSha256": "9948be833617075289b17f9926056d69fe2371cc0fda878c8184cc3879f56c9f",
-  "contentDigest": "5f7abeacb1b5e10d8979c3b0552d26054a34b0f313b5722212218d84f81dc436",
+  "sourceCommit": "330c717d5e6d54f90eb539cdcadf2e2c3afb43bd",
+  "version": "0.1.2",
+  "packageSha256": "3eee3eaf96384e06eeb76471ff41e5fe980bff80c4bdc91c9deab876bd1b8d72",
+  "contentDigest": "db9b91c38ac2ca3542c1aaccf782ec9c94168e2e55f0c27ca06ab53f5c9b2fe8",
   "files": [
     {
       "path": ".gitattributes",
@@ -22,28 +22,16 @@
       "gitBlob": "6bde8b99982755f2ca439974ca691440aac12b4e"
     },
     {
-      "path": "assets/codlet/svg/codlet-currentcolor.svg",
-      "bytes": 4303,
-      "sha256": "3e1d3fb3f74c48f0e25d7afc6b4817db91ac3589b691b93bbbfebd6d11b8e308",
-      "gitBlob": "df540d9ed4ee21bb8bb26c26f6519352f576c5c9"
-    },
-    {
-      "path": "assets/codlet/svg/codlet-small.svg",
-      "bytes": 4030,
-      "sha256": "85467bbbcf3fbd62d4791a8ef4879c4b9d53eac5ea089be8631fe81fc0e43435",
-      "gitBlob": "3b23e6829ffab57eb4dbfa6b53f64e74e1b36471"
-    },
-    {
       "path": "codlet-package.json",
-      "bytes": 374,
-      "sha256": "4abf82694ad5f6f8bbdf9ca7aa522d1c2f6d21b32a611b6c991680f718abcf51",
-      "gitBlob": "e1cb611e15ef69e91183594d065d714663506ec7"
+      "bytes": 1497,
+      "sha256": "6fe09475e9cea5fafc42a43a2935b5d173b68226bff0662711f8ce7796943ae8",
+      "gitBlob": "e2af7d25c4cff4d8c796021bdd59912f4e656d9e"
     },
     {
       "path": "codlet.json",
-      "bytes": 661,
-      "sha256": "01833a341b35a4cc6e823810c52c4c012cac03c1ce7f0cafe9712771236429f6",
-      "gitBlob": "c5ac1e4aa849cd68eb2a561b2d8465594d2f89a1"
+      "bytes": 660,
+      "sha256": "b429fffab3c4d5ab8b5a0010b231af4e3b341cdcb0769685ae68f3c1a88fc718",
+      "gitBlob": "0c37ee1fa3272c4f3fb86daab2b8217537ba08f8"
     },
     {
       "path": "compatibility/client-profiles.js",
@@ -53,21 +41,21 @@
     },
     {
       "path": "compatibility/client-profiles.json",
-      "bytes": 4123,
-      "sha256": "1bf456699683c6c36434b34d6b651de9d145dcf7dddca1cbeeee28764d1b39f1",
-      "gitBlob": "971413618b6b774154bfd4e12a9ce6fe20c036c8"
+      "bytes": 7141,
+      "sha256": "b86305e844b2849a56a464c283d7862f31aba33cf28f84074acdbce45c3f56e6",
+      "gitBlob": "437a423799ec595ae87353b33e5b9a75158dfbb9"
     },
     {
       "path": "CONTRIBUTING.md",
-      "bytes": 326,
-      "sha256": "773296341715f9d61a5469078d1c21164087d52bda84e0eaef429be171c5d0a2",
-      "gitBlob": "6138cc8f790cec330bf1cf7aa10952d38d3bbf29"
+      "bytes": 475,
+      "sha256": "c30a07f7f5018818310d353c654863737e95cd4564543cdf9d9815ccd2c25e78",
+      "gitBlob": "fcba8d0240ab86c1d6424e690b67b3016068d535"
     },
     {
       "path": "dist/renderer.js",
-      "bytes": 143631,
-      "sha256": "58120ace50098584ade95a8e5cfde2097a1b837e751dcb5102edea50014a97bf",
-      "gitBlob": "77fa2d18ef925377e980fa0fc5c0806c9160d8f8"
+      "bytes": 29190,
+      "sha256": "549025b26e1ac6d8ef2a3192e996faab1d91aa8b8b081f4f45b2e87b02d65c58",
+      "gitBlob": "a2ebc62bf2ce5ac21a282f16c41632c685972987"
     },
     {
       "path": "frontend/build-plugin.mjs",
@@ -83,15 +71,15 @@
     },
     {
       "path": "frontend/package-lock.json",
-      "bytes": 215787,
-      "sha256": "f9cc5a54b4fe3a5a629435ccbcf5ddccc96a178d4ee1fa20ce49d3bf3db97bd2",
-      "gitBlob": "ffd0e6d3b39fabad9acdff37a79f1465fbacbb0a"
+      "bytes": 35067,
+      "sha256": "3a953c70fb07989924dcbb94527494a3d73a50be419c80b64f1878c409eb0ea6",
+      "gitBlob": "26ec5866a825abf5b1ef6bf50ce2cfa58a3195c2"
     },
     {
       "path": "frontend/package.json",
-      "bytes": 457,
-      "sha256": "b0637a7bb8f602b63d526920c1e392c1bc1dff936aa38b53d81feda0041c0f28",
-      "gitBlob": "c55b5bdeecfcb2b06e2d9b21721ff436ffcdc248"
+      "bytes": 293,
+      "sha256": "cbf438cf783d28b1c49a613a5baabce72c086f926bff3abf301e53b8ad0af8e0",
+      "gitBlob": "9902d411b9579ce94a75262f04e400094ea8cb05"
     },
     {
       "path": "frontend/src/adapter/entry.js",
@@ -101,21 +89,33 @@
     },
     {
       "path": "frontend/src/adapter/navigation.js",
-      "bytes": 17994,
-      "sha256": "1f148205230fc63bc661847721e7a4961325e8e3529da2819f22e8165c637e32",
-      "gitBlob": "fd56a5cf97a3328caaa1228ca53a9e3338769e17"
+      "bytes": 18769,
+      "sha256": "1a9cc9e165c63e832f74525794e725f972a8a023b73be0e1f1ce423b1d59ed7b",
+      "gitBlob": "d5932064718c307b642b40382db5e2a5b086e0b2"
     },
     {
-      "path": "frontend/src/brand.js",
-      "bytes": 753,
-      "sha256": "d133094700f6fde1309fd31962cd7d6b45581370977101d605e6eca6e5ef9090",
-      "gitBlob": "504171aff536bdda48f6a3cbb9388f1dfc9092fa"
+      "path": "frontend/src/icons.js",
+      "bytes": 2826,
+      "sha256": "413522ec6d850ba1a61aa600ef2f01e1a86aff747619e3f9a0c9b28b02d9719a",
+      "gitBlob": "11bd7e677f637914a245ffb3396403f5943b04f6"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "gitBlob": "d645695673349e3947e8e5ae42332d0ac3164cd7"
+    },
+    {
+      "path": "NOTICE",
+      "bytes": 345,
+      "sha256": "b92e617f2f6e4387072abd7fd0269dc9c66f9f8d619f275d59824024ee83cb6c",
+      "gitBlob": "a39592a8cbea7ad04586653bdd48e2a0fe0c7450"
     },
     {
       "path": "README.md",
-      "bytes": 1481,
-      "sha256": "605d87d8fbaeb7418c0703e6247559d5893a73ad96bc7c6837b80423fc6e433b",
-      "gitBlob": "cd07eb7e6d138477e856a558bab76f10ff717dad"
+      "bytes": 1821,
+      "sha256": "6ef38b5a9740505d0fe2f6ff1cf10f85276703e667965114306b8861f3cefa0c",
+      "gitBlob": "c9ad2281a1446188f66cf5ee762f681097a786dd"
     }
   ]
 }
