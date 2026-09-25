@@ -1,11 +1,18 @@
 import { createCodletIcons } from '../icons.js';
-import { clientProfile } from '../../../compatibility/client-profiles.js';
+import { CLIENT_PROFILES, clientProfile } from '../../../compatibility/client-profiles.js';
+import { COMPOSER_CAPABILITY, createComposerActions, composerLease } from './composer-action.js';
 
 // Host internals belong only to this optional adapter. Never run these imports
 // outside the reviewed Desktop build, or create another app-host connection.
-export function pageProfile(build) {
-  const profile = clientProfile(build);
-  if (!profile?.page) throw fail('ui_build_drift', 'No reviewed sidebar/page profile for this Desktop build');
+export function pageProfile(build, entries = Array.from(document.scripts, script => script.src), readyState = document.readyState) {
+  const profile = clientProfile(build, entries);
+  if (!profile?.page) {
+    const sources = Array.isArray(entries) ? entries : [entries];
+    const candidates = CLIENT_PROFILES.filter(profile => profile.appVersion === build?.appVersion && profile.buildNumber === String(build?.buildNumber));
+    if (candidates.length && !candidates.some(profile => sources.includes(profile.entry)) && readyState !== 'complete')
+      throw fail('ui_host_pending', 'Waiting for the reviewed Desktop entry resource');
+    throw fail('ui_build_drift', 'No reviewed sidebar/page profile for this Desktop build');
+  }
   return profile;
 }
 export const CAPABILITY = Object.freeze({ name: 'codex.ui.navigation.page', api: 1, scope: 'target' });
@@ -92,10 +99,32 @@ function pageOwner(args, invocation) {
 }
 
 export function createNavigation(context, native, host) {
+  // The pet window mounts a router, but never mounts the main AppShell. Its
+  // lazy header/composer modules must not be initialized by this adapter.
+  if (host.auxiliary) {
+    const actions = createComposerActions(context, host, null);
+    let alive = true;
+    return {
+      register(args, invocation) {
+        if (!alive) throw fail('ui_retired', 'The UI adapter retired');
+        const current = locateHost();
+        if (!current.auxiliary || current.tree !== host.tree || current.navigator !== host.navigator)
+          throw fail('ui_host_drift', 'Desktop route ownership changed; reload the UI adapter');
+        pageOwner(args, invocation);
+        return { api: 1, token: args.token, path: null, available: false };
+      },
+      newTaskDraft() { throw fail('ui_composer_unavailable', 'This window has no task composer'); },
+      registerComposer: (args, invocation) => actions.register(args, invocation),
+      unregisterComposer: (args, invocation) => actions.unregister(args, invocation),
+      statusComposer: (args, invocation) => actions.status(args, invocation),
+      dispose() { alive = false; actions.dispose(); },
+    };
+  }
   const { React, DOM, Client, SidebarItem, Header, HeaderToolbar } = native;
   const { Cube, CodeSquareSlash, PluginPuzzle } = createCodletIcons(React);
   const icons = { Cube, CodeSquareSlash, Codlet: PluginPuzzle };
   const entries = new Map(), h = React.createElement;
+  const composerActions = createComposerActions(context, host, native.composerActionProfile);
   let alive = true, navContainer, navRoot, pending = false;
   const hostLive = () => document.getElementById('root') === host.rootNode && host.rootNode.isConnected;
   const check = () => {
@@ -154,7 +183,7 @@ export function createNavigation(context, native, host) {
     pending = true; queueMicrotask(() => { pending = false; reconcile(); });
   };
   const observer = new MutationObserver(schedule);
-  if(!host.auxiliary)observer.observe(document.documentElement, { childList: true, subtree: true });
+  observer.observe(document.documentElement, { childList: true, subtree: true });
   function DraftBridge({entry}) {
     const compose=native.useStartNewConversation();
     React.useLayoutEffect(()=>{entry.compose=compose;return()=>{if(entry.compose===compose)entry.compose=null;};},[entry,compose]);
@@ -174,9 +203,6 @@ export function createNavigation(context, native, host) {
   function register(args, invocation) {
     check();
     const { caller, lease } = pageOwner(args, invocation);
-    // The Desktop pet is a reviewed auxiliary route, not a page surface.
-    // Tell the public helper to release its pending DOM without an error.
-    if(host.auxiliary)return {api:1,token:args.token,path:null,available:false};
     if(args.toolbar && (!Header || !HeaderToolbar))throw fail('ui_build_drift','The reviewed native page toolbar is unavailable');
     const existing = entries.get(caller.pluginId);
     if (existing) {
@@ -202,9 +228,14 @@ export function createNavigation(context, native, host) {
     host.routes.push(entry.route); entries.set(entry.owner, entry); reconcile(); renderNav();
     return entry.description;
   }
-  return { register, newTaskDraft, dispose() {
+  return { register, newTaskDraft,
+    registerComposer: (args, invocation) => composerActions.register(args, invocation),
+    unregisterComposer: (args, invocation) => composerActions.unregister(args, invocation),
+    statusComposer: (args, invocation) => composerActions.status(args, invocation),
+    dispose() {
     if (!alive) return;
     observer.disconnect();
+    composerActions.dispose();
     for (const entry of [...entries.values()]) retire(entry);
     alive = false;
     if (navRoot) DOM.flushSync(() => navRoot.unmount());
@@ -223,14 +254,21 @@ export function reviewedHeader(initial, names) {
   return { Header, HeaderToolbar };
 }
 
-async function loadNative() {
+function nativeProfile() {
   const build = globalThis.electronBridge?.getSentryInitOptions?.();
   if (location.origin !== 'app://-' || location.pathname !== '/index.html')
     throw fail('ui_build_drift', 'No reviewed sidebar/page profile for this Desktop build');
-  const profile = pageProfile(build), page = profile.page, names = page.exports;
-  if (![...document.scripts].some(script => script.src === profile.entry)) throw fail('ui_host_pending', 'Waiting for the Desktop entry');
+  const profile = pageProfile(build);
+  if (![...document.scripts].some(script => script.src === profile.entry))
+    throw fail(document.readyState === 'complete' ? 'ui_build_drift' : 'ui_host_pending', 'The Desktop entry resource does not match this adapter');
+  return profile;
+}
+
+async function loadNative() {
+  const profile = nativeProfile(), page = profile.page, names = page.exports;
   const [react, dom, client, primary, initial] = await Promise.all([import(page.react), import(page.dom), import(page.client), import(page.primary), import(profile.module)]);
   const native = { React: react[names.react??'t'](), DOM: dom[names.dom??'t'](), Client: client[names.client??'t'](), SidebarItem: primary[names.sidebar], ...reviewedHeader(initial, names) };
+  native.composerActionProfile = page.composerAction ?? null;
   // Same lazy initializer and hook used by the official Create plugin/skill
   // flow. The hook is called inside Native's route and AppScope providers.
   if(typeof initial[names.newTaskInit]!=='function')throw fail('ui_build_drift','The reviewed new-task initializer changed');
@@ -244,13 +282,23 @@ async function loadNative() {
 
 export function deferredNavigation(context, load = loadNative) {
   let alive = true, navigation, failure, cancelWait;
-  const pending = new Map();
+  const pending = new Map(), pendingComposer = new Map();
   const ready = (async () => {
     let native, delay = 50;
     while (alive) {
       try {
+        if (load === loadNative) nativeProfile();
+        // Importing Native's lazy modules and invoking their initializers before
+        // its own router commits can mutate partially initialized registries.
+        // Observe the existing tree first; never bootstrap the host for it.
+        const host = locateHost();
+        if (host.auxiliary) {
+          navigation = createNavigation(context, null, host);
+          break;
+        }
         native ??= await load();
         if (!alive) break;
+        // The document/tree may have changed while the imports were pending.
         navigation = createNavigation(context, native, locateHost());
         break;
       } catch (error) {
@@ -273,12 +321,25 @@ export function deferredNavigation(context, load = loadNative) {
       }
     }
     pending.clear();
+    for (const entry of pendingComposer.values()) {
+      if (!entry.lease.isConnected) continue;
+      try {
+        const result = navigation.registerComposer(entry.args, { caller: entry.caller });
+        if (result.available === false) entry.lease.remove();
+      } catch (error) {
+        entry.lease.remove();
+        context.reportDiagnostic?.({ code: error.code || 'ui_unavailable', message: error.message });
+      }
+    }
+    pendingComposer.clear();
     return navigation;
   })();
   ready.catch(error => {
     failure = error;
     for (const entry of pending.values()) entry.lease.remove();
     pending.clear();
+    for (const entry of pendingComposer.values()) entry.lease.remove();
+    pendingComposer.clear();
     if (alive) context.reportDiagnostic?.({ code: error.code || 'ui_unavailable', message: error.message });
   });
   return {
@@ -301,11 +362,45 @@ export function deferredNavigation(context, load = loadNative) {
       if (!navigation) throw fail('ui_host_pending', 'The native page is not ready');
       return navigation.newTaskDraft(args, invocation);
     },
+    registerComposer(args, invocation) {
+      if (!alive || invocation?.signal?.aborted) throw fail('ui_retired', 'The composer provider retired');
+      if (failure) throw failure;
+      if (navigation) return navigation.registerComposer(args, invocation);
+      const { caller, lease } = composerLease(args, invocation);
+      for (const [id, entry] of pendingComposer) if (!entry.lease.isConnected) pendingComposer.delete(id);
+      const id = `${caller.pluginId}\0${args.token}`;
+      if (!pendingComposer.has(id) && pendingComposer.size >= 64) throw fail('resource_limit', 'Too many pending composer actions');
+      const previous = pendingComposer.get(id);
+      if (previous && previous.lease !== lease) previous.lease.remove();
+      pendingComposer.set(id, { args: { ...args }, caller: { ...caller }, lease });
+      return { api: 1, token: args.token, available: true, pending: true, mounted: 0 };
+    },
+    unregisterComposer(args, invocation) {
+      if (!alive) throw fail('ui_retired', 'The composer provider retired');
+      if (navigation) return navigation.unregisterComposer(args, invocation);
+      const caller = invocation?.caller;
+      if (!caller || typeof caller.pluginId !== 'string' || !Number.isSafeInteger(caller.generation) ||
+          typeof args?.token !== 'string') throw fail('invalid_argument', 'Invalid composer action removal');
+      const id = `${caller.pluginId}\0${args.token}`, entry = pendingComposer.get(id);
+      if (!entry || entry.caller.generation !== caller.generation) return { removed: false };
+      pendingComposer.delete(id); return { removed: true };
+    },
+    statusComposer(args, invocation) {
+      if (!alive) throw fail('ui_retired', 'The composer provider retired');
+      if (navigation) return navigation.statusComposer(args, invocation);
+      const caller = invocation?.caller;
+      if (!caller || typeof caller.pluginId !== 'string' || !Number.isSafeInteger(caller.generation) ||
+          typeof args?.token !== 'string') throw fail('invalid_argument', 'Invalid composer action status');
+      const entry = pendingComposer.get(`${caller.pluginId}\0${args.token}`);
+      return { registered: !!entry && entry.caller.generation === caller.generation, mounted: 0, pending: true };
+    },
     dispose() {
       if (!alive) return;
       alive = false; cancelWait?.();
       for (const entry of pending.values()) entry.lease.remove();
       pending.clear(); navigation?.dispose();
+      for (const entry of pendingComposer.values()) entry.lease.remove();
+      pendingComposer.clear();
     },
   };
 }
@@ -314,4 +409,7 @@ export async function activate(context) {
   deactivate(); const session = deferredNavigation(context); current = session;
   context.rpc.provide(CAPABILITY, 'register', async (args, invocation) => session.register(args, invocation));
   context.rpc.provide(CAPABILITY, 'newTaskDraft', async (args, invocation) => session.newTaskDraft(args, invocation));
+  context.rpc.provide(COMPOSER_CAPABILITY, 'register', async (args, invocation) => session.registerComposer(args, invocation));
+  context.rpc.provide(COMPOSER_CAPABILITY, 'unregister', async (args, invocation) => session.unregisterComposer(args, invocation));
+  context.rpc.provide(COMPOSER_CAPABILITY, 'status', async (args, invocation) => session.statusComposer(args, invocation));
 }

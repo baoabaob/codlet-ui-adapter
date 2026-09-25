@@ -2,7 +2,7 @@
 
 Official Codlet plugin for Codex sidebar and plugin page integration
 
-Plugin ID: `codex.ui.adapter` · Version: `0.1.2`
+Plugin ID: `codex.ui.adapter` · Version: `0.1.5`
 
 ## Install and update
 
@@ -10,7 +10,7 @@ In Codlet, choose **Add → Import plugin → GitHub**, then paste:
 
 https://github.com/baoabaob/codlet-ui-adapter
 
-Use the plugin ZIP from [Releases](https://github.com/baoabaob/codlet-ui-adapter/releases), not GitHub's generated source-code archive. Codlet follows this plugin's own release channel for updates after a GitHub installation. Private repositories and draft releases are not available to the current unauthenticated importer.
+Use the plugin ZIP from [Releases](https://github.com/baoabaob/codlet-ui-adapter/releases), not GitHub's generated source-code archive. Codlet follows this plugin's declared release channel for verified installer packages and GitHub installations. The first remote update of a preinstalled package asks you to review its adoption; local author folders are never enrolled automatically. Private repositories and draft releases are not available to the current unauthenticated importer.
 
 Dependencies: Core only. Install dependencies first; the current importer does not fetch them automatically.
 
