@@ -2,7 +2,7 @@
 
 Official Codlet plugin for Codex sidebar and plugin page integration
 
-Plugin ID: `codex.ui.adapter` · Version: `0.1.6`
+Plugin ID: `codex.ui.adapter` · Version: `0.1.7`
 
 ## Install and update
 

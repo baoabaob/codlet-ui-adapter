@@ -4,10 +4,10 @@
   "pluginId": "codex.ui.adapter",
   "repository": "baoabaob/codlet-ui-adapter",
   "sourceRepository": "baoabaob/codlet-plugins",
-  "sourceCommit": "1c6d5437293a6b29c79eb880d8ffd119ab0e297f",
-  "version": "0.1.6",
-  "packageSha256": "4b0d808098613b5c36e053aae8f23a5f2f0e567aca1797d797cc45a884d00e3b",
-  "contentDigest": "6c5fb785f9e1bd8bbadbc201cb888b5f5ce4ef4e5e4af9dadd93641ab512cb6b",
+  "sourceCommit": "5cd6302e35b8f70f2e2b7cf830d203e73b3c68f3",
+  "version": "0.1.7",
+  "packageSha256": "5009c90d556c158e5b6c8dd3107b4570d1cfd8278146c69404e23742ff2e9008",
+  "contentDigest": "ab1f4a320c4ddfd2a9b01ed05582a2c74132786cca6066bd2cb2cc932a37a2b2",
   "files": [
     {
       "path": ".gitattributes",
@@ -30,8 +30,8 @@
     {
       "path": "codlet.json",
       "bytes": 765,
-      "sha256": "cf134910a97650df2b5276cdeb34a27fef11acfd96c7e31b0c8f4da0902ac91e",
-      "gitBlob": "38b68e744874faeb09b468b61b2c9d4183c279c4"
+      "sha256": "85047659c8814c32dbb92f545bd1d58e49d7d4b11bf5a3eac76ef2ed2f72618c",
+      "gitBlob": "05d17907711efcd559fff718b5ef761912beac8c"
     },
     {
       "path": "compatibility/client-profiles.js",
@@ -41,9 +41,9 @@
     },
     {
       "path": "compatibility/client-profiles.json",
-      "bytes": 9535,
-      "sha256": "a3917e818d1e61d610342134008a914f9bcd0dd6376e10236642ddb2f2aae20e",
-      "gitBlob": "5ab4f002ff61cf91775f4811f582fa642819ff96"
+      "bytes": 9631,
+      "sha256": "68bcde02137dcedb2b20a47594a223288062b14312f1630834772e9f41b3cc32",
+      "gitBlob": "e088dd2bd499f486065fc03e03f5489046d86f9b"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -53,9 +53,9 @@
     },
     {
       "path": "dist/renderer.js",
-      "bytes": 51696,
-      "sha256": "a9c8984796d79fd48bb27a636889f928202f1a5aa8ee351e1e2b5caccf54d792",
-      "gitBlob": "1f5824e9c12300bb665d2e51a6f7ec3885e783b2"
+      "bytes": 53967,
+      "sha256": "66431572aab8b8687131e5a90ade6c454e5ea2290adc1b87efd0d9d66c19a7d6",
+      "gitBlob": "6a97cc61d92c4bda89974cdb4a6483fc810d6730"
     },
     {
       "path": "frontend/build-plugin.mjs",
@@ -95,9 +95,9 @@
     },
     {
       "path": "frontend/src/adapter/navigation.js",
-      "bytes": 26000,
-      "sha256": "6d9e6609f37f656cc2e0f042e1ffa6cad957a47d1b98970afff096d78ec9e8b4",
-      "gitBlob": "76834f6af41d43f6860348cadc23c7a92279df7a"
+      "bytes": 28304,
+      "sha256": "acc68645dde168de7b3ad91b3199bc18276806390013f62cfaace7bbe76f37c1",
+      "gitBlob": "59b9c23967b63382041d82316f5e88502a980295"
     },
     {
       "path": "frontend/src/icons.js",
@@ -126,8 +126,8 @@
     {
       "path": "README.md",
       "bytes": 1981,
-      "sha256": "9acf5492420b20f10ac89ef5f3d2cba832d4ca0231f35969ffa99b2025740ba9",
-      "gitBlob": "12a8fdf27f422b6e36a46eb867abd92683a12455"
+      "sha256": "e34b25ae4a660c01d0d30435a1d826b959a4fd1446359be30b8fa74cffe4911f",
+      "gitBlob": "71eed51c03554adaa980e3c812cd78c7dc0c6d3b"
     }
   ]
 }
