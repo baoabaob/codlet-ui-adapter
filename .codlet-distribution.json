@@ -4,10 +4,10 @@
   "pluginId": "codex.ui.adapter",
   "repository": "baoabaob/codlet-ui-adapter",
   "sourceRepository": "baoabaob/codlet-plugins",
-  "sourceCommit": "2adf92e0735bb6add7a1473e17564efccf28eea8",
-  "version": "0.1.8",
-  "packageSha256": "5f5ebf8ef20ed58d70e320f242292733878d6aa8a2c5393ece685adf6cfe9bce",
-  "contentDigest": "2d7df2b176b2af734b5d9c30692cf785ab2e45cf5627af6e02623a6cd5caac0c",
+  "sourceCommit": "85c84e14c60ea58c87c39abfbe49d990358cb058",
+  "version": "0.1.9",
+  "packageSha256": "e5920a03974f9765be7fc9b33f4d6f3421e9363170299c2acbeb8137537f4df5",
+  "contentDigest": "0424c0eb37dd853c23d1e3b9e7610c392b7b126a3e6cfa0010d664e53727b8e0",
   "files": [
     {
       "path": ".gitattributes",
@@ -30,8 +30,8 @@
     {
       "path": "codlet.json",
       "bytes": 766,
-      "sha256": "3f819c9c6d66a1906207c0218acb8dd823d1a8bbc774637fc3132a21021ed123",
-      "gitBlob": "820687ee100124152327b8168a3bcc9a2290150b"
+      "sha256": "3066b9fa9cbb1a5e254b3f797979f4a260a72be49ff62a47817460f9623c6621",
+      "gitBlob": "fb0b3305a3a794c89b7b62ad221bbd380a23ceca"
     },
     {
       "path": "compatibility/client-profiles.js",
@@ -53,9 +53,9 @@
     },
     {
       "path": "dist/renderer.js",
-      "bytes": 54107,
-      "sha256": "596dc0a3755dbaf9f63547ac3b3f3d3e023a602454676acb510bf408f6787d64",
-      "gitBlob": "cf73023d856956d08ac469e17cd5f0bd8cc0e030"
+      "bytes": 266603,
+      "sha256": "3b8f155ff091fdbc6bdfd62ea38111e9b443e04b4c9091132fd2c21e1ad8b5ea",
+      "gitBlob": "0635d5cb771edd693b16ba930ed900cdd776c035"
     },
     {
       "path": "frontend/build-plugin.mjs",
@@ -71,21 +71,27 @@
     },
     {
       "path": "frontend/package-lock.json",
-      "bytes": 35067,
-      "sha256": "3a953c70fb07989924dcbb94527494a3d73a50be419c80b64f1878c409eb0ea6",
-      "gitBlob": "26ec5866a825abf5b1ef6bf50ce2cfa58a3195c2"
+      "bytes": 35510,
+      "sha256": "e9aa95fe8110736921755d947d0c02e982284d58b366584b9f5a3a5214f9c14e",
+      "gitBlob": "be95953ecfb8e4cdddc6fd0cb093ffe28599782f"
     },
     {
       "path": "frontend/package.json",
-      "bytes": 293,
-      "sha256": "cbf438cf783d28b1c49a613a5baabce72c086f926bff3abf301e53b8ad0af8e0",
-      "gitBlob": "9902d411b9579ce94a75262f04e400094ea8cb05"
+      "bytes": 316,
+      "sha256": "e3e2d7e3ffe4eea9e6cfbe7e07fb3f51a8503ddb948ba1a44c17588373a2c231",
+      "gitBlob": "f0dd5efa925328a6b4e2bba627f7073db70eee41"
     },
     {
       "path": "frontend/src/adapter/composer-action.js",
       "bytes": 11364,
       "sha256": "4b3e9e58cdaa6f38b8eb2d8f40f2f234fd21cbfd1655c2fbd9b5104e82f35f74",
       "gitBlob": "5309b60f568a1d16ca26d3ff6e238366b409d53b"
+    },
+    {
+      "path": "frontend/src/adapter/discovery.js",
+      "bytes": 5135,
+      "sha256": "411a8cbb09ab4569cd04d2b4d6cfaecf0760c865e4145d976310e5d9999306c3",
+      "gitBlob": "88bdeb9a36af9c48fc6ddc0a91394337dd8e8438"
     },
     {
       "path": "frontend/src/adapter/entry.js",
@@ -95,9 +101,21 @@
     },
     {
       "path": "frontend/src/adapter/navigation.js",
-      "bytes": 28327,
-      "sha256": "fe1176f805a4b7d49167bd0e7fc5a70843d4651e405014679bc0189aa10d5e2c",
-      "gitBlob": "424405ce54fa3ed5f9edf9ebb934ec5f28980d3c"
+      "bytes": 31089,
+      "sha256": "bfe7ef955d2c809b68966e2fe9b0a863d843f65558f109eeefb56191cec99076",
+      "gitBlob": "aa6ceab834155a40685111fc52f773ef971ffd9b"
+    },
+    {
+      "path": "frontend/src/adapter/react-factories.js",
+      "bytes": 3508,
+      "sha256": "184238a92cafe0352b12a214322768bd06f732225bfa815de6d5a007e466f7ff",
+      "gitBlob": "c0db1e85f064b2ce703632718f9a72f852566cd7"
+    },
+    {
+      "path": "frontend/src/host-discovery.js",
+      "bytes": 4519,
+      "sha256": "7a86755966ee72a0ca56645c052bc27aa3e56d1eb1f2f6c750cf93362bd72274",
+      "gitBlob": "39014a1e136833402a0da05b25baf7a18f45b8eb"
     },
     {
       "path": "frontend/src/icons.js",
@@ -126,8 +144,8 @@
     {
       "path": "README.md",
       "bytes": 1981,
-      "sha256": "3a5f4552ff11f244f222d2eac724be9a322063ed28bada7a8e5ac82b09844d05",
-      "gitBlob": "921fc217a82affe85cca6e3c404cb606883f566e"
+      "sha256": "1a7172bba646d67723999a35e30c41b0ef305481244ff21916a8f8f6184eb4f7",
+      "gitBlob": "cd7f7e3940675584225ea701082420024fbe9ae2"
     }
   ]
 }
