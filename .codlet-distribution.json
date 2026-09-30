@@ -4,10 +4,10 @@
   "pluginId": "codex.ui.adapter",
   "repository": "baoabaob/codlet-ui-adapter",
   "sourceRepository": "baoabaob/codlet-plugins",
-  "sourceCommit": "85c84e14c60ea58c87c39abfbe49d990358cb058",
-  "version": "0.1.9",
-  "packageSha256": "e5920a03974f9765be7fc9b33f4d6f3421e9363170299c2acbeb8137537f4df5",
-  "contentDigest": "0424c0eb37dd853c23d1e3b9e7610c392b7b126a3e6cfa0010d664e53727b8e0",
+  "sourceCommit": "b31cfcaa5b837efcc0705a1c62269d5d245e38ce",
+  "version": "0.1.10",
+  "packageSha256": "0ea659c2bfbb7303d6c5cc7bfb9c8878bd4857646b2fd6570eb8d9bf5de8c5e2",
+  "contentDigest": "8ef9691e0f7091a96c0b60979b6740bbcb783faa4ea441dc35445930b336ff8c",
   "files": [
     {
       "path": ".gitattributes",
@@ -29,9 +29,9 @@
     },
     {
       "path": "codlet.json",
-      "bytes": 766,
-      "sha256": "3066b9fa9cbb1a5e254b3f797979f4a260a72be49ff62a47817460f9623c6621",
-      "gitBlob": "fb0b3305a3a794c89b7b62ad221bbd380a23ceca"
+      "bytes": 767,
+      "sha256": "e2863a1c0550777db015cf4ce4b8ad87be03b6105eec0b14edaafcf30ca96feb",
+      "gitBlob": "749aa7b580baad8d0c2f3f0b1b13ef33e5d00b9e"
     },
     {
       "path": "compatibility/client-profiles.js",
@@ -53,9 +53,9 @@
     },
     {
       "path": "dist/renderer.js",
-      "bytes": 266603,
-      "sha256": "3b8f155ff091fdbc6bdfd62ea38111e9b443e04b4c9091132fd2c21e1ad8b5ea",
-      "gitBlob": "0635d5cb771edd693b16ba930ed900cdd776c035"
+      "bytes": 267706,
+      "sha256": "e91252b619c8a624fb5ed6bf9b59746ac5673ac86e5ff21c1f62115b1a721984",
+      "gitBlob": "8d78b6839f8888e42cee6ac9234f7277d86a2ed1"
     },
     {
       "path": "frontend/build-plugin.mjs",
@@ -101,9 +101,9 @@
     },
     {
       "path": "frontend/src/adapter/navigation.js",
-      "bytes": 31089,
-      "sha256": "bfe7ef955d2c809b68966e2fe9b0a863d843f65558f109eeefb56191cec99076",
-      "gitBlob": "aa6ceab834155a40685111fc52f773ef971ffd9b"
+      "bytes": 32621,
+      "sha256": "19a573919a56b837319015874e3a0ad74bdc4804ec71ebcfc8d9b37ccf03893e",
+      "gitBlob": "1a70574fb2a35bfd3ae499a40254ed4d1b02b7c4"
     },
     {
       "path": "frontend/src/adapter/react-factories.js",
@@ -143,9 +143,9 @@
     },
     {
       "path": "README.md",
-      "bytes": 1981,
-      "sha256": "1a7172bba646d67723999a35e30c41b0ef305481244ff21916a8f8f6184eb4f7",
-      "gitBlob": "cd7f7e3940675584225ea701082420024fbe9ae2"
+      "bytes": 1982,
+      "sha256": "02a1fbd035a74129aa1c7cb47649b6a7523fca5f2efd221a7167206b2cb0d1ae",
+      "gitBlob": "141410d3304043937489f273bd059bb3f953d627"
     }
   ]
 }
